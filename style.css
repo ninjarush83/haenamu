@@ -1,0 +1,403 @@
+/* ========================================================= */
+/* 1. 기본 설정, 폰트 & 색상 변수 (PC: Light Mode 기본값) */
+/* ========================================================= */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+@font-face {
+    font-family: 'GangwonEdu_OTFBoldA';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEdu_OTFBoldA.woff') format('woff');
+    font-weight: normal; font-style: normal;
+}
+
+:root { 
+    /* 불변 포인트 컬러 */
+    --main-orange: #e68a00;  
+    --dark-orange: #cc7a00;  
+    --bright-orange: #e68a00;
+
+    /* PC (Web) - 라이트 모드 컬러 */
+    --main-text: #222222;
+    --sub-text: #666666;
+    --bg-color: #ffffff;
+    --section-bg: #f8f9fa;
+    --border-color: #eaeaea;
+    
+    /* 요소별 배경색 */
+    --header-bg: rgba(255, 255, 255, 0.95);
+    --footer-bg: #e9ecef;
+    --footer-text: #555555;
+    --box-bg: #ffffff;
+    --table-th-bg: #f1f3f5;
+    --note-bg: #f1f3f5;
+    --img-bg: #f4f5f7;
+}
+
+* { box-sizing: border-box; }
+html, body { overflow-x: hidden; width: 100%; max-width: 100%; scroll-behavior: smooth; }
+body { font-family: 'Pretendard', sans-serif; margin: 0; padding: 0; background-color: var(--bg-color); color: var(--main-text); }
+
+/* --- 기종(아이폰/갤럭시) 디자인 차이 보정 --- */
+input, button, textarea, select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0; 
+}
+body {
+    -webkit-font-smoothing: antialiased; 
+    -moz-osx-font-smoothing: grayscale;
+}
+html { touch-action: manipulation; }
+
+.mo-br { display: none; } /* PC 화면에서는 모바일용 줄바꿈을 숨깁니다 */
+
+/* ========================================================= */
+/* 2. 공통 헤더 */
+/* ========================================================= */
+header { display: flex; justify-content: space-between; align-items: center; padding: 0 60px; background-color: var(--header-bg); border-bottom: 1px solid var(--border-color); position: fixed; top: 0; width: 100%; z-index: 999; height: 90px; backdrop-filter: blur(5px); transition: background-color 0.3s; }
+.logo-area { display: flex; align-items: center; gap: 12px; font-size: 28px; color: var(--main-text); text-decoration: none; font-family: 'GangwonEdu_OTFBoldA', sans-serif; }
+.logo-area img { height: 65px; transform: translateY(-4px); }
+
+.header-btn { background-color: #03C75A; color: #fff; border: none; padding: 12px 28px; border-radius: 30px; font-weight: 800; font-size: 16px; cursor: pointer; transition: 0.3s; }
+.header-btn:hover { background-color: #02b350; }
+
+/* ========================================================= */
+/* 3. 섹션 레이아웃 */
+/* ========================================================= */
+.snap-section { height: auto; position: relative; padding: 80px 0 50px 0; display: flex; align-items: center; justify-content: center; }
+.bg-light { background-color: var(--section-bg); }
+
+.content-wrapper { 
+    max-width: 1200px; 
+    width: 100%; 
+    padding: 0 40px; 
+    display: flex; 
+    flex-direction: row; 
+    align-items: center; 
+    justify-content: space-between; 
+    gap: 80px; 
+    text-align: left; 
+}
+.content-wrapper.row-reverse { flex-direction: row-reverse !important; }
+
+.section-container { max-width: 1100px; margin: 0 auto; padding: 0 40px 40px 40px; }
+.content-section { scroll-margin-top: 130px; margin-bottom: 50px; } 
+
+.section-title { font-size: 32px; color: var(--main-text); margin-top: 0; margin-bottom: 30px; font-weight: 800; letter-spacing: -1px; text-align: center; }
+.section-title span { color: var(--main-orange); }
+.divider { display: none !important; } 
+.subtitle { font-size: 16px; font-weight: 700; color: var(--main-orange); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 15px; display: block; }
+
+.btn-primary { background-color: #03C75A; color: #fff; border: none; padding: 16px 40px; border-radius: 30px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.3s; text-decoration: none; display: inline-block;}
+.btn-primary:hover { background-color: #02b350; }
+
+/* 대주제 챕터 띠 */
+.page-header { 
+    background-color: rgba(230, 138, 0, 0.05);
+    padding: 35px 0; 
+    margin-bottom: 40px; 
+    border-top: 1px solid var(--border-color); 
+    border-bottom: 1px solid var(--border-color); 
+    text-align: center; 
+}
+.page-header h2 { font-size: 40px; color: var(--main-text); margin: 0 0 15px 0; font-weight: 800; letter-spacing: -1px; }
+.page-header p { color: var(--sub-text); font-size: 18px; margin: 0; font-weight: 400;}
+
+/* ========================================================= */
+/* 4. 메인 대문 */
+/* ========================================================= */
+.hero { background-color: var(--bg-color); background-image: none; }
+.hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, var(--section-bg) 0%, var(--bg-color) 100%); opacity: 1; }
+.hero-container { position: relative; z-index: 1; width: 100%; max-width: 1200px; color: var(--main-text); padding: 0 40px; margin-top: 0; text-align: center; }
+.hero-text h1 { font-size: 64px; font-weight: 800; line-height: 1.3; margin-bottom: 20px; letter-spacing: -1.5px; }
+.hero-text h1 span { color: var(--bright-orange); }
+.hero-text p.description { font-size: 20px; font-weight: 400; line-height: 1.6; margin-bottom: 40px; color: var(--sub-text); }
+
+.time-text-highlight { margin-top: 50px; display: flex; flex-direction: column; align-items: center; gap: 12px; } 
+.time-text-highlight strong { font-size: 45px; color: var(--bright-orange); font-weight: 800; letter-spacing: -1.5px; }
+.time-text-highlight p { margin: 0; font-size: 30px; color: var(--main-text); font-weight: 700; word-break: keep-all; line-height: 1.4; }
+.time-text-highlight p .highlight-orange { color: var(--bright-orange); }
+
+/* ========================================================= */
+/* 5. 8칸 그리드 (숫자 아이콘) */
+/* ========================================================= */
+.subjects-grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    border: 1px solid var(--border-color); 
+    background-color: var(--box-bg);
+    width: 100%;
+}
+
+.subject-item {
+    padding: 40px 30px;
+    border-right: 1px solid var(--border-color); 
+    border-bottom: 1px solid var(--border-color); 
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+    text-align: left;
+    box-sizing: border-box;
+}
+
+.subject-item:nth-child(4n) { border-right: none; }
+.subject-item:nth-child(n+9) { border-bottom: none; }
+
+.subject-icon {
+    width: 45px;  
+    height: 45px;
+    background-color: var(--main-orange); 
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-shrink: 0;
+    color: #ffffff;
+    font-size: 22px;
+    font-family: Georgia, serif; 
+    font-weight: bold;
+    line-height: 1;         
+    padding-top: 2px;       
+    box-sizing: border-box; 
+}
+
+.subject-title { font-size: 22px; font-weight: 800; color: var(--main-text); margin: 0 0 15px 0; letter-spacing: -0.5px; word-break: keep-all; }
+.subject-desc { font-size: 15px; color: var(--sub-text); line-height: 1.6; margin: 0; word-break: keep-all; }
+
+/* ========================================================= */
+/* 6. 진료과목 & 인트로 공통 요소 */
+/* ========================================================= */
+.text-box { flex: 1; }
+.text-box h2 { font-size: 42px; font-weight: 800; line-height: 1.35; margin: 0 0 30px 0; color: var(--main-text); letter-spacing: -1px; }
+.text-box p { font-size: 18px; color: var(--sub-text); line-height: 1.7; margin-bottom: 20px; word-break: keep-all; }
+
+.img-box { flex: 1; position: relative; }
+.img-box img { width: 100%; height: 500px; object-fit: cover; box-shadow: 0 20px 40px rgba(0,0,0,0.1); transition: 0.5s ease; border-radius: 12px;}
+.style-1 img { border-radius: 150px 20px 20px 20px; } 
+.style-2 img { border-radius: 20px 150px 20px 20px; } 
+
+.philosophy-box { background-color: var(--box-bg); padding: 70px 60px; border-radius: 30px; box-shadow: 0 15px 40px rgba(0,0,0,0.06); text-align: center; }
+.quote-top, .quote-bottom { font-size: 60px; color: var(--main-orange); line-height: 0.8; display: block; font-family: Georgia, serif; }
+.quote-top { margin-bottom: 5px; } .quote-bottom { margin-top: 40px; margin-bottom: 30px; } 
+.philosophy-text { font-size: 19px; color: var(--sub-text); line-height: 1.9; word-break: keep-all; display: flex; flex-direction: column; align-items: center;}
+.philosophy-text strong { color: var(--main-text); font-weight: 800; font-size: 30px; display: block; margin-bottom: 0px; line-height: 1.4; letter-spacing: -1px;} 
+
+.doctor-profile { display: flex; gap: 50px; background-color: var(--box-bg); padding: 50px; border-radius: 30px; box-shadow: 0 15px 40px rgba(0,0,0,0.06); margin-bottom: 30px; align-items: center; transition: 0.3s; }
+.doctor-img-box { width: 300px; flex-shrink: 0; }
+.doctor-img-box img { width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 20px; background-color: var(--img-bg); }
+.doctor-info { flex: 1; }
+.doctor-title-badge { display: inline-block; padding: 6px 16px; background-color: rgba(230, 138, 0, 0.1); color: var(--main-orange); border-radius: 20px; font-size: 14px; font-weight: 700; margin-bottom: 15px; }
+.doctor-name { font-size: 32px; font-weight: 800; color: var(--main-text); margin: 0 0 20px 0; letter-spacing: -1px; }
+.doctor-desc { font-size: 17px; color: var(--sub-text); line-height: 1.7; margin-bottom: 30px; }
+.doctor-history { list-style: none; padding: 0; margin: 0; }
+.doctor-history li { font-size: 16px; color: var(--sub-text); margin-bottom: 12px; padding-left: 20px; position: relative; }
+.doctor-history li::before { content: ""; position: absolute; left: 0; top: 10px; width: 6px; height: 6px; background-color: var(--main-orange); border-radius: 50%; }
+
+/* ========================================================= */
+/* 7. 진료안내 표 / 오시는 길 / 주차안내 */
+/* ========================================================= */
+table { width: 100%; max-width: 900px; margin: 0 auto; border-collapse: collapse; text-align: center; margin-bottom: 25px; background-color: var(--box-bg); box-shadow: 0 5px 15px rgba(0,0,0,0.05);}
+th, td { border-bottom: 1px solid var(--border-color); padding: 22px 10px; font-size: 17px; } 
+th { background-color: var(--table-th-bg); font-weight: 800; color: var(--main-text); border-top: 2px solid var(--main-orange); border-bottom: 1px solid var(--border-color);}
+td { color: var(--sub-text); }
+.highlight { color: var(--main-orange); font-weight: 700; }
+.note { width: 100%; max-width: 900px; margin: 0 auto; font-size: 16px; color: var(--sub-text); text-align: left; line-height: 1.8; background-color: var(--note-bg); padding: 20px; border-radius: 12px; }
+
+.custom-map-wrap { position: relative; width: 100%; height: 380px; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.1); cursor: pointer; }
+.custom-map-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
+.custom-map-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.1); display: flex; justify-content: center; align-items: center; opacity: 1; }
+.custom-map-overlay span { background-color: var(--main-orange); color: #fff; padding: 14px 28px; border-radius: 30px; font-weight: 800; font-size: 17px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition: transform 0.3s ease; }
+.custom-map-wrap:hover .custom-map-overlay span { transform: scale(1.05); }
+
+.info-title { font-size: 26px; font-weight: 800; margin-bottom: 25px; color: var(--main-text); letter-spacing: -0.5px; }
+.info-row { display: flex; align-items: flex-start; margin-bottom: 20px; }
+.info-label { width: 80px; font-size: 16px; font-weight: 700; color: var(--main-orange); flex-shrink: 0; }
+.info-value { font-size: 17px; color: var(--sub-text); line-height: 1.6; }
+
+.parking-card { flex: 1; background-color: var(--box-bg); border-radius: 20px; padding: 40px; border-top: 6px solid var(--main-orange); box-shadow: 0 10px 30px rgba(0,0,0,0.06); }
+.parking-card h4 { font-size: 22px; font-weight: 800; color: var(--main-text); margin: 0 0 15px 0; display: flex; align-items: center; gap: 8px; }
+.parking-card p { font-size: 16px; color: var(--sub-text); line-height: 1.7; margin: 0; }
+.parking-card strong { color: var(--main-orange); display: block; margin-bottom: 10px; font-size: 17px; }
+
+.schedule-table { width: 100%; min-width: 600px; border-collapse: collapse; text-align: center; background-color: var(--box-bg); box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-radius: 12px; overflow: hidden; border-style: hidden; }
+.schedule-table th { background-color: var(--table-th-bg); border-top: 2px solid var(--main-orange); padding: 15px 5px; font-size: 16px; color: var(--main-text); border-bottom: 1px solid var(--border-color); }
+.schedule-table td { padding: 18px 5px; font-size: 16px; border-bottom: 1px solid var(--border-color); color: var(--main-text); }
+
+/* ========================================================= */
+/* 8. 플로팅 버튼들 */
+/* ========================================================= */
+.naver-floating { position: fixed; right: 40px; bottom: 110px; font-weight: 800; font-size: 16px; padding: 15px 0; width: 180px; border-radius: 30px; box-shadow: 0 10px 20px rgba(0,0,0,0.15); display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; z-index: 9999; transition: all 0.3s ease; background-color: #03C75A; color: #fff; }
+.naver-floating:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.25); }
+
+.phone-floating { position: fixed; right: 40px; bottom: 40px; font-weight: 800; font-size: 16px; padding: 15px 0; width: 180px; border-radius: 30px; box-shadow: 0 10px 20px rgba(0,0,0,0.15); display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; z-index: 9999; transition: all 0.3s ease; background-color: var(--main-orange); color: #fff; }
+.phone-floating:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.25); background-color: var(--dark-orange); }
+
+.top-btn { position: fixed; right: 40px; bottom: 180px; width: 50px; height: 50px; background-color: var(--box-bg); color: var(--sub-text); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold; box-shadow: 0 5px 15px rgba(0,0,0,0.1); text-decoration: none; z-index: 9998; border: 1px solid var(--border-color); opacity: 0; visibility: hidden; transition: all 0.3s ease; }
+.top-btn:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.15); color: var(--main-orange); border-color: var(--main-orange); }
+
+/* ========================================================= */
+/* 9. 푸터 */
+/* ========================================================= */
+footer { background-color: var(--footer-bg); padding: 60px 0 40px 0; color: var(--footer-text); font-size: 14px; border-top: 1px solid var(--border-color); width: 100%; overflow: hidden; }
+.footer-container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+.footer-top img { height: 35px !important; max-height: 35px !important; width: auto !important; object-fit: contain; display: block; }
+.footer-top span { font-family: 'GangwonEdu_OTFBoldA'; font-size: 24px; color: var(--main-text); }
+.footer-info { line-height: 2.2; margin-bottom: 25px; margin-top: 25px;}
+.info-row-1, .info-row-2 { display: flex; flex-wrap: wrap; align-items: center; gap: 0 15px; }
+.footer-info span { white-space: nowrap; }
+.info-divider { color: var(--sub-text); font-weight: 300; font-size: 12px; margin: 0 5px; opacity: 0.5; }
+.footer-bottom { border-top: 1px solid var(--border-color); padding-top: 20px; font-size: 13px; color: var(--sub-text); margin-top: 20px; opacity: 0.7; }
+
+.price-link { font-size: 15px; font-weight: 800; color: var(--main-text); text-decoration: none; transition: 0.3s; background-color: var(--border-color); padding: 8px 15px; border-radius: 8px; }
+.price-link:hover { color: #fff; background-color: var(--main-orange); }
+.price-table { width: 100%; max-width: 900px; margin: 0 auto; border-collapse: collapse; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+.price-table th { background-color: var(--table-th-bg); color: var(--main-text); padding: 16px; font-weight: 700; border: 1px solid var(--border-color); font-size: 17px; }
+.price-table td { padding: 16px; border: 1px solid var(--border-color); color: var(--main-text); line-height: 1.5; vertical-align: middle; font-size: 16px; background-color: var(--box-bg); }
+.price-table tr:hover td { background-color: var(--section-bg); }
+
+/* ========================================================= */
+/* 10. 모바일 반응형 완벽 최적화 (모바일만 다크모드로 자동 전환) */
+/* ========================================================= */
+@media screen and (max-width: 768px) {
+    /* 🚨 모바일 진입 시 색상을 강제로 다크 모드로 덮어씌움 🚨 */
+    :root { 
+        --main-text: #e0e0e0;
+        --sub-text: #aaaaaa;
+        --bg-color: #121212;
+        --section-bg: #1e1e1e;
+        --border-color: #333333;
+        --bright-orange: #ffb03b;
+        
+        --header-bg: rgba(18, 18, 18, 0.95);
+        --footer-bg: #0a0a0a;
+        --footer-text: #888888;
+        --box-bg: #1e1e1e;
+        --table-th-bg: #2a2a2a;
+        --note-bg: #2a2a2a;
+        --img-bg: #2a2a2a;
+    }
+
+    /* 기본 텍스트 크기 통일 (화면 너비의 4% 크기로 고정) */
+    body, p, td, li, .info-value, .parking-card p, .note { 
+        font-size: 4vw !important; 
+        line-height: 1.7 !important;
+        letter-spacing: -0.03em !important; 
+        word-break: keep-all !important;
+    }
+
+    /* 제목(Heading) 크기 비율 고정 */
+    .hero-text h1 { font-size: 9.5vw !important; margin-bottom: 3vw !important; }
+    .section-title, .text-box h2, .page-header h2 { font-size: 7.5vw !important; margin-bottom: 4vw !important; }
+    .subject-title, .info-title, .parking-card h4 { font-size: 5.5vw !important; }
+
+    /* 진료 스케줄 및 시간표 */
+    .schedule-table th, .schedule-table td, table th, table td {
+        font-size: 3.2vw !important; 
+        padding: 2.5vw 1vw !important;
+    }
+
+    /* 시간 강조 텍스트 */
+    .time-text-highlight { margin-top: 8vw !important; gap: 2vw !important; }
+    .time-text-highlight strong { font-size: 8.5vw !important; }
+    .time-text-highlight p { font-size: 4.8vw !important; }
+
+    /* 레이아웃 여백 비율(vw)로 변경 */
+    .snap-section { padding: 12vw 0 6vw 0 !important; }
+    .content-wrapper { padding: 0 5vw !important; gap: 6vw !important; }
+    
+    /* 치료 철학 박스 내부 최적화 */
+    .philosophy-box { padding: 10vw 5vw !important; }
+    .philosophy-text strong { font-size: 5.8vw !important; line-height: 1.4 !important; }
+    .philosophy-text > div { text-align: center !important; font-size: 4vw !important; line-height: 1.8; padding: 0 3vw; margin-top: 8vw !important; word-break: keep-all; }
+    
+/* 🚨 이미지 원본 비율 그대로 100% 다 보이게 설정 (잘림 없음) 🚨 */
+    .img-box, .style-1, .style-2 {
+        width: 100% !important;
+        height: auto !important;
+        aspect-ratio: auto !important; /* 박스의 고정 비율 해제 */
+    }
+
+    .img-box img, .style-1 img, .style-2 img { 
+        width: 100% !important; 
+        height: auto !important; /* 세로 길이를 원본 사진에 맞게 자동으로 늘리거나 줄임 */
+        aspect-ratio: auto !important; /* 억지로 맞춘 4:3 비율 완전 해제 */
+        object-fit: contain !important; /* 사진의 어느 한 곳도 잘리지 않고 온전히 다 나오게 함 */
+        border-radius: 4vw !important; /* PC 버전의 기괴하게 파인 모서리를 덮어쓰고 깔끔한 사각형 유지 */
+        display: block !important;
+    }
+
+    /* 오시는 길 지도는 기존처럼 넓고 보기 좋게 유지 */
+    .custom-map-wrap { 
+        width: 100% !important; 
+        height: auto !important; 
+        aspect-ratio: 4 / 3 !important; 
+    }
+
+    /* 모바일 구조 설정 유지 */
+    header { padding: 0 5vw; height: 18vw; flex-direction: column; justify-content: center; }
+    .logo-area { font-size: 6vw; gap: 2vw; }
+    .logo-area img { height: 10vw; transform: none; }
+    .header-btn { display: none; } 
+    
+    .page-header { padding: 6vw 5vw; margin-bottom: 6vw; word-break: keep-all; }
+    .page-header p { font-size: 3.5vw !important; padding: 0; }
+    .section-container { padding: 0 5vw 8vw 5vw; }
+    .hero-container { padding: 0 5vw; }
+
+    /* 모바일 순서 완벽 고정: 사진 먼저, 글 나중 */
+    .content-wrapper, .content-wrapper.row-reverse { 
+        flex-direction: column !important; 
+        text-align: center; 
+        display: flex; 
+    }
+    .img-box { order: 1 !important; width: 100%; } 
+    .text-box { order: 2 !important; width: 100%; text-align: center !important; }
+    
+    .doctor-profile { flex-direction: column !important; gap: 5vw; padding: 6vw 5vw !important; text-align: center; }
+    .doctor-img-box { width: 100%; }
+    .doctor-img-box img { aspect-ratio: 4/5 !important; object-fit: cover; object-position: top; }
+    
+    /* 8칸 그리드 (모바일 1칸) */
+    .subjects-grid-container { grid-template-columns: 1fr; border: none; border-top: 1px solid var(--border-color); }
+    .subject-item { align-items: center; text-align: center; border-right: none !important; border-bottom: 1px solid var(--border-color) !important; padding: 8vw 5vw; }
+    .subject-item:last-child { border-bottom: none !important; }
+
+    table { display: table; width: 100%; table-layout: fixed; white-space: normal; word-break: keep-all; margin-bottom: 5vw; }
+    .schedule-table { min-width: auto !important; }
+    
+    .note { padding: 4vw; word-break: keep-all; }
+    
+    .info-row { flex-direction: column; align-items: flex-start; gap: 2vw; padding: 4vw 5vw; border-radius: 12px; margin-bottom: 3vw; justify-content: center; }
+    .info-label { width: auto; font-size: 3.5vw; border-bottom: 2px solid var(--main-orange); padding-bottom: 1vw; }
+    .info-value { text-align: left; }
+    
+    .parking-card { padding: 6vw 5vw; text-align: left; }
+    .parking-card h4 { justify-content: flex-start; }
+
+/* 아이폰 하단바(노치) 침범 완벽 방지 및 버튼 간격 넉넉하게 띄우기 */
+    .phone-floating { bottom: calc(30px + env(safe-area-inset-bottom)) !important; right: 20px !important; width: 150px !important; padding: 12px 0 !important; font-size: 15px !important; }
+    .naver-floating { bottom: calc(95px + env(safe-area-inset-bottom)) !important; right: 20px !important; width: 150px !important; padding: 12px 0 !important; font-size: 15px !important; }
+    .top-btn { right: 20px !important; bottom: calc(160px + env(safe-area-inset-bottom)) !important; width: 45px !important; height: 45px !important; font-size: 20px !important; }
+
+    /* 모바일 푸터 */
+    footer { padding: 8vw 5vw; text-align: left; }
+    .footer-container { padding: 0; } 
+    .footer-top { justify-content: space-between; margin-bottom: 4vw; }
+    .footer-top img { height: 6vw !important; max-height: 6vw !important; }
+    .footer-top span { font-size: 5vw; }
+    .info-row-1, .info-row-2 { display: block; } 
+    .footer-info { margin-bottom: 4vw; }
+    .footer-info span { display: block; line-height: 1.6; white-space: normal; margin-bottom: 1.5vw; font-size: 3.2vw !important; }
+    .info-divider { display: none !important; }
+    
+    .pc-br { display: none; } 
+    .mo-br { display: block; } 
+
+    
+/* 모바일에서 진료과목 타이틀과 내용 완전히 숨기기 */
+    #intro + .page-header, 
+    #subjects-summary {
+        display: none !important;
+    }
+}
