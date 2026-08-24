@@ -9,7 +9,7 @@
     
     <style>
         /* ========================================================= */
-        /* 1. 기본 설정, 폰트 & 색상 변수 */
+        /* 1. 기본 설정, 폰트 & 색상 변수 (PC: Light Mode 기본값) */
         /* ========================================================= */
         @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
 
@@ -60,11 +60,12 @@
         /* ========================================================= */
         /* 2. 공통 헤더 */
         /* ========================================================= */
-        header { display: flex; justify-content: space-between; align-items: center; padding: 0 60px; background-color: var(--header-bg); border-bottom: 1px solid var(--border-color); position: fixed; top: 0; left: 0; right: 0; z-index: 999; height: 90px; backdrop-filter: blur(5px); transition: background-color 0.3s; }
+        header { display: flex; justify-content: space-between; align-items: center; padding: 0 60px; background-color: var(--header-bg); border-bottom: 1px solid var(--border-color); position: fixed; top: 0; width: 100%; z-index: 999; height: 90px; backdrop-filter: blur(5px); transition: background-color 0.3s; }
         .logo-area { display: flex; align-items: center; gap: 12px; font-size: 28px; color: var(--main-text); text-decoration: none; font-family: 'GangwonEdu_OTFBoldA', sans-serif; }
-        
-        .header-btn { background-color: #03C75A; color: #fff; border: none; padding: 12px 28px; border-radius: 30px; font-weight: 800; font-size: 16px; cursor: pointer; transition: 0.3s; }
-        .header-btn:hover { background-color: #02b350; }
+        .logo-area img { height: 65px; transform: translateY(-4px); }
+
+        /* 네이버 예약 헤더 버튼 숨김 처리 */
+        .header-btn { display: none !important; }
 
         /* ========================================================= */
         /* 3. 섹션 레이아웃 */
@@ -83,6 +84,8 @@
             gap: 80px; 
             text-align: left; 
         }
+        .content-wrapper.row-reverse { flex-direction: row-reverse !important; }
+
         .section-container { max-width: 1100px; margin: 0 auto; padding: 0 40px 40px 40px; }
         .content-section { scroll-margin-top: 130px; margin-bottom: 50px; } 
 
@@ -93,19 +96,30 @@
         .btn-primary { background-color: #03C75A; color: #fff; border: none; padding: 16px 40px; border-radius: 30px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.3s; text-decoration: none; display: inline-block;}
         .btn-primary:hover { background-color: #02b350; }
 
+        .page-header { 
+            background-color: rgba(230, 138, 0, 0.05);
+            padding: 35px 0; 
+            margin-bottom: 40px; 
+            border-top: 1px solid var(--border-color); 
+            border-bottom: 1px solid var(--border-color); 
+            text-align: center; 
+        }
+        .page-header h2 { font-size: 40px; color: var(--main-text); margin: 0 0 15px 0; font-weight: 800; letter-spacing: -1px; }
+        .page-header p { color: var(--sub-text); font-size: 18px; margin: 0; font-weight: 400;}
+
         /* ========================================================= */
         /* 4. 메인 대문 */
         /* ========================================================= */
-        .hero { 
-            background-color: var(--bg-color); 
-            padding-top: 170px !important; 
-            padding-bottom: 90px !important;
-        }
+        .hero { background-color: var(--bg-color); background-image: none; padding-top: 170px !important; padding-bottom: 90px !important; }
         .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, var(--section-bg) 0%, var(--bg-color) 100%); opacity: 1; z-index: 0; }
         .hero-container { position: relative; z-index: 1; width: 100%; max-width: 1200px; color: var(--main-text); padding: 0 40px; margin-top: 0; text-align: center; }
         .hero-text h1 { font-size: 64px; font-weight: 800; line-height: 1.3; margin-bottom: 20px; letter-spacing: -1.5px; }
         .hero-text h1 span { color: var(--bright-orange); }
         .hero-text p.description { font-size: 20px; font-weight: 400; line-height: 1.6; margin-bottom: 40px; color: var(--sub-text); }
+
+        .time-text-highlight { margin-top: 50px; display: flex; flex-direction: column; align-items: center; gap: 12px; } 
+        .time-text-highlight strong { font-size: 45px; color: var(--bright-orange); font-weight: 800; letter-spacing: -1.5px; }
+        .time-text-highlight p { margin: 0; font-size: 30px; color: var(--main-text); font-weight: 700; word-break: keep-all; line-height: 1.4; }
 
         /* ========================================================= */
         /* 5. 8칸 그리드 (숫자 아이콘) */
@@ -117,36 +131,58 @@
             background-color: var(--box-bg);
             width: 100%;
         }
+
         .subject-item {
             padding: 40px 30px;
             border-right: 1px solid var(--border-color); 
             border-bottom: 1px solid var(--border-color); 
-            display: flex; flex-direction: column; align-items: flex-start; text-align: left;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; 
+            text-align: left;
+            box-sizing: border-box;
         }
+
         .subject-item:nth-child(4n) { border-right: none; }
         .subject-item:nth-child(n+9) { border-bottom: none; }
+
         .subject-icon {
-            width: 45px; height: 45px; background-color: var(--main-orange); border-radius: 50%;
-            display: flex; justify-content: center; align-items: center; margin-bottom: 20px;
-            color: #ffffff; font-size: 22px; font-family: Georgia, serif; font-weight: bold;
+            width: 45px;  
+            height: 45px;
+            background-color: var(--main-orange); 
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-shrink: 0;
+            color: #ffffff;
+            font-size: 22px;
+            font-family: Georgia, serif; 
+            font-weight: bold;
+            line-height: 1;         
+            padding-top: 2px;       
+            box-sizing: border-box; 
         }
-        .subjects-title { font-size: 22px; font-weight: 800; color: var(--main-text); margin: 0 0 15px 0; letter-spacing: -0.5px; }
-        .subject-desc { font-size: 15px; color: var(--sub-text); line-height: 1.6; margin: 0; }
+
+        .subject-title { font-size: 22px; font-weight: 800; color: var(--main-text); margin: 0 0 15px 0; letter-spacing: -0.5px; word-break: keep-all; }
+        .subject-desc { font-size: 15px; color: var(--sub-text); line-height: 1.6; margin: 0; word-break: keep-all; }
 
         /* ========================================================= */
         /* 6. 진료철학 & 프로필 */
         /* ========================================================= */
         .philosophy-box { background-color: var(--box-bg); padding: 70px 60px; border-radius: 30px; box-shadow: 0 15px 40px rgba(0,0,0,0.06); text-align: center; }
         .quote-top, .quote-bottom { font-size: 60px; color: var(--main-orange); line-height: 0.8; display: block; font-family: Georgia, serif; }
-        .philosophy-text { font-size: 19px; color: var(--sub-text); line-height: 1.9; display: flex; flex-direction: column; align-items: center;}
-        .philosophy-text strong { color: var(--main-text); font-weight: 800; font-size: 30px; display: block; margin-bottom: 10px; } 
+        .quote-top { margin-bottom: 5px; } .quote-bottom { margin-top: 40px; margin-bottom: 30px; } 
+        .philosophy-text { font-size: 19px; color: var(--sub-text); line-height: 1.9; word-break: keep-all; display: flex; flex-direction: column; align-items: center;}
+        .philosophy-text strong { color: var(--main-text); font-weight: 800; font-size: 30px; display: block; margin-bottom: 0px; line-height: 1.4; letter-spacing: -1px;} 
 
-        .doctor-profile { display: flex; gap: 50px; background-color: var(--box-bg); padding: 50px; border-radius: 30px; box-shadow: 0 15px 40px rgba(0,0,0,0.06); margin-bottom: 30px; align-items: center; }
+        .doctor-profile { display: flex; gap: 50px; background-color: var(--box-bg); padding: 50px; border-radius: 30px; box-shadow: 0 15px 40px rgba(0,0,0,0.06); margin-bottom: 30px; align-items: center; transition: 0.3s; }
         .doctor-img-box { width: 300px; flex-shrink: 0; }
         .doctor-img-box img { width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 20px; background-color: var(--img-bg); }
         .doctor-info { flex: 1; }
         .doctor-title-badge { display: inline-block; padding: 6px 16px; background-color: rgba(230, 138, 0, 0.1); color: var(--main-orange); border-radius: 20px; font-size: 14px; font-weight: 700; margin-bottom: 15px; }
-        .doctor-name { font-size: 32px; font-weight: 800; color: var(--main-text); margin: 0 0 20px 0; }
+        .doctor-name { font-size: 32px; font-weight: 800; color: var(--main-text); margin: 0 0 20px 0; letter-spacing: -1px; }
         .doctor-desc { font-size: 17px; color: var(--sub-text); line-height: 1.7; margin-bottom: 30px; }
         .doctor-history { list-style: none; padding: 0; margin: 0; }
         .doctor-history li { font-size: 16px; color: var(--sub-text); margin-bottom: 12px; padding-left: 20px; position: relative; text-align: left; }
@@ -162,9 +198,8 @@
         .highlight { color: var(--main-orange); font-weight: 700; }
         .note { width: 100%; max-width: 900px; margin: 0 auto; font-size: 16px; color: var(--sub-text); text-align: left; line-height: 1.8; background-color: var(--note-bg); padding: 20px; border-radius: 12px; }
 
-        .custom-map-wrap { position: relative; width: 100%; height: 380px; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.1); cursor: pointer; }
-        .custom-map-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.1); display: flex; justify-content: center; align-items: center; }
-        .custom-map-overlay span { background-color: var(--main-orange); color: #fff; padding: 14px 28px; border-radius: 30px; font-weight: 800; font-size: 17px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .custom-map-wrap { position: relative; width: 100%; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.1); cursor: pointer; border: 1px solid var(--border-color); }
+        .custom-map-wrap img { width: 100%; height: auto; display: block; object-fit: cover; }
 
         .parking-card { flex: 1; background-color: var(--box-bg); border-radius: 20px; padding: 40px; border-top: 6px solid var(--main-orange); box-shadow: 0 10px 30px rgba(0,0,0,0.06); }
         .parking-card h4 { font-size: 22px; font-weight: 800; color: var(--main-text); margin: 0 0 15px 0; display: flex; align-items: center; gap: 8px; }
@@ -176,8 +211,10 @@
         /* ========================================================= */
         /* 8. 고정형 플로팅 버튼 */
         /* ========================================================= */
-        .naver-floating { position: fixed; right: 40px; bottom: 110px; font-weight: 800; font-size: 16px; padding: 15px 0; width: 180px; border-radius: 30px; box-shadow: 0 10px 20px rgba(0,0,0,0.15); display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; z-index: 9999; background-color: #03C75A; color: #fff; transition: 0.3s; }
-        .naver-floating:hover { transform: translateY(-5px); }
+        /* 네이버 예약 플로팅 버튼 숨김 처리 */
+        .naver-floating { display: none !important; }
+
+        /* 전화 문의 버튼 하단 배치 위치 최적화 */
         .phone-floating { position: fixed; right: 40px; bottom: 40px; font-weight: 800; font-size: 16px; padding: 15px 0; width: 180px; border-radius: 30px; box-shadow: 0 10px 20px rgba(0,0,0,0.15); display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; z-index: 9999; background-color: var(--main-orange); color: #fff; transition: 0.3s; }
         .phone-floating:hover { transform: translateY(-5px); background-color: var(--dark-orange); }
 
@@ -195,7 +232,6 @@
         .price-link { font-size: 15px; font-weight: 800; color: var(--main-text); text-decoration: none; transition: 0.3s; background-color: var(--border-color); padding: 8px 15px; border-radius: 8px; cursor: pointer; display: inline-block; }
         .price-link:hover { color: #fff; background-color: var(--main-orange); }
         
-        /* 팝업 모달창 스타일 */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-color: rgba(0, 0, 0, 0.6); z-index: 10000;
@@ -221,7 +257,7 @@
         .price-table tr:nth-child(even) td { background-color: var(--section-bg); }
 
         /* ========================================================= */
-        /* 10. 모바일 반응형 최적화 */
+        /* 10. 모바일 반응형 완벽 최적화 (다크모드 지원) */
         /* ========================================================= */
         @media screen and (max-width: 768px) {
             :root { 
@@ -237,19 +273,20 @@
             .content-wrapper { flex-direction: column !important; padding: 0 5vw !important; gap: 6vw !important; }
             header { padding: 0 5vw; height: 18vw; justify-content: center; }
             .logo-area { font-size: 6vw; }
-            .header-btn { display: none; } 
             .doctor-profile { flex-direction: column !important; padding: 6vw 5vw !important; text-align: center; }
             .doctor-img-box { width: 100%; }
+            .doctor-img-box img { aspect-ratio: 4/5 !important; object-fit: cover; object-position: top; }
             .subjects-grid-container { grid-template-columns: 1fr; border: none; }
             .subject-item { align-items: center; text-align: center; border-right: none !important; border-bottom: 1px solid var(--border-color) !important; padding: 8vw 5vw; }
             .parking-card { padding: 6vw 5vw; text-align: left; }
-            .phone-floating { bottom: calc(20px + env(safe-area-inset-bottom)) !important; right: 20px !important; width: 140px !important; font-size: 14px !important; }
-            .naver-floating { bottom: calc(80px + env(safe-area-inset-bottom)) !important; right: 20px !important; width: 140px !important; font-size: 14px !important; }
+            .phone-floating { bottom: calc(30px + env(safe-area-inset-bottom)) !important; right: 20px !important; width: 150px !important; font-size: 15px !important; }
             footer { padding: 8vw 5vw; }
             .info-row-1, .info-row-2 { display: block; }
             .info-divider { display: none !important; }
             .modal-content { padding: 20px 15px; width: 95%; max-height: 90vh; }
             .modal-title { font-size: 5vw !important; }
+            .pc-br { display: none; } 
+            .mo-br { display: block; } 
         }
     </style>
 </head>
@@ -258,6 +295,7 @@
     <!-- 헤더 영역 (GNB) -->
     <header>
         <a href="#" class="logo-area">장계 해나무 한의원</a>
+        <!-- 예약 기능 비활성화로 인해 버튼 숨김 처리 -->
         <button class="header-btn" onclick="window.open('https://booking.naver.com')">네이버 예약</button>
     </header>
 
@@ -323,29 +361,29 @@
         </div>
     </section>
 
-    <!-- 4. 진료 과목 안내 섹션 -->
+    <!-- 4. 주요 진료과목 섹션 -->
     <section id="subjects" class="content-section">
         <div class="section-container">
             <h2 class="section-title">주요 <span>진료과목</span></h2>
             <div class="subjects-grid-container">
                 <div class="subject-item">
                     <div class="subject-icon">01</div>
-                    <div class="subjects-title">교통사고 후유증</div>
+                    <div class="subject-title">교통사고 후유증</div>
                     <div class="subject-desc">눈에 보이지 않는 어혈을 신속히 배출하고 미세 손상된 근육과 인대를 강화해 후유증을 예방합니다.</div>
                 </div>
                 <div class="subject-item">
                     <div class="subject-icon">02</div>
-                    <div class="subjects-title">추나요법 관절교정</div>
+                    <div class="subject-title">추나요법 관절교정</div>
                     <div class="subject-desc">틀어진 척추 마디마디와 관절을 정밀하게 밀고 당겨 균형을 잡고 신경 압박과 만성 통증을 해소합니다.</div>
                 </div>
                 <div class="subject-item">
                     <div class="subject-icon">03</div>
-                    <div class="subjects-title">8체질 비만 다이어트</div>
+                    <div class="subject-title">8체질 비만 다이어트</div>
                     <div class="subject-desc">선천적 체질을 판별하여 몸의 대사기능을 활성화하고 무리한 굶기 없이 요요 현상을 최소화합니다.</div>
                 </div>
                 <div class="subject-item">
                     <div class="subject-icon">04</div>
-                    <div class="subjects-title">소아 성장 보약</div>
+                    <div class="subject-title">소아 성장 보약</div>
                     <div class="subject-desc">기초 면역력을 강화하고 장부의 불균형을 다스려 아이들이 제 시기에 바르게 자라도록 기초를 세웁니다.</div>
                 </div>
             </div>
@@ -398,13 +436,7 @@
             <h2 class="section-title">오시는 <span>길</span></h2>
             <div style="display:flex; flex-direction:column; gap:30px;">
                 <div class="custom-map-wrap" onclick="window.open('https://map.naver.com')">
-                    <div class="custom-map-overlay">
-                        <span>네이버 지도에서 보기</span>
-                    </div>
-                    <div style="width:100%; height:100%; background-color:#eef2f7; display:flex; justify-content:center; align-items:center; color:#777; flex-direction:column; gap:10px;">
-                        <i class="fa-solid fa-map-location-dot" style="font-size:40px; color:var(--main-orange);"></i>
-                        <p style="font-weight:700; margin:0;">전북 장수군 장계면 한들로 113 해나무한의원 2층</p>
-                    </div>
+                    <img src="map.jpg" alt="장계 해나무 한의원 위치 지도">
                 </div>
                 
                 <div style="display:flex; gap:20px; flex-wrap:wrap;">
@@ -444,12 +476,12 @@
                 <a href="javascript:void(0);" class="price-link" onclick="openModal()">비급여 목록 고시 보기</a>
             </div>
             <div class="footer-bottom">
-                &copy; 2026 장계 해나무 한의원. All Rights Reserved. Designed to Responsive Dynamic Standards.
+                &copy; 2026 장계 해나무 한의원. All Rights Reserved.
             </div>
         </div>
     </footer>
 
-    <!-- 8. 비급여 고시 내부 팝업 모달창 구조 (경옥고/공진단 '1달분' 반영 완료) -->
+    <!-- 8. 비급여 고시 팝업 모달창 -->
     <div id="priceModal" class="modal-overlay" onclick="closeModalOutside(event)">
         <div class="modal-content">
             <div class="modal-header">
@@ -461,80 +493,65 @@
                     <thead>
                         <tr>
                             <th>항목 (구분)</th>
-                            <th>구분 / 단위</th>
-                            <th>비용 (원)</th>
+                            <th>비용 / 단위</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>진단서</td>
-                            <td>소견서 / 1만 원</td>
-                            <td>10,000</td>
+                            <td>진단서(소견서)</td>
+                            <td>1만원</td>
                         </tr>
                         <tr>
                             <td>진료확인서 / 진료차트</td>
-                            <td>1천 원 / 장</td>
-                            <td>1,000</td>
+                            <td>1천원 / 장</td>
                         </tr>
                         <tr>
                             <td>소화제</td>
-                            <td>대환 / 소환</td>
-                            <td>5,000 / 5,000</td>
+                            <td>5천원 (대환) / 5천원 (소환)</td>
                         </tr>
                         <tr>
-                            <td>봉침 / 벌침</td>
-                            <td>5천 원 (벌침)</td>
-                            <td>5,000</td>
+                            <td>봉(벌)침</td>
+                            <td>5천원 (벌침)</td>
                         </tr>
                         <tr>
                             <td>한방파스 / 스틱파스</td>
-                            <td>1만 원 / 6천 원</td>
-                            <td>10,000 / 6,000</td>
+                            <td>1만원 / 6천원</td>
                         </tr>
                         <tr>
                             <td>빙빙환</td>
-                            <td>1.5만 원 / 통</td>
-                            <td>15,000</td>
+                            <td>1.5만원 / 통</td>
                         </tr>
                         <tr>
-                            <td>감비환</td>
-                            <td>1달분</td>
-                            <td>100,000</td>
+                            <td>감비환(1달분)</td>
+                            <td>10만원</td>
                         </tr>
                         <tr>
                             <td>경옥고</td>
-                            <td>1달분</td>
-                            <td>150,000</td>
+                            <td>150,000원</td>
                         </tr>
                         <tr>
-                            <td>공진단</td>
-                            <td>1달분</td>
-                            <td>400,000 ~ 600,000</td>
+                            <td>공진단 (1달분)</td>
+                            <td>400,000원 ~ 600,000원</td>
                         </tr>
                         <tr>
-                            <td>추나요법</td>
-                            <td>20회 이후</td>
-                            <td>20,000 ~ 40,000</td>
+                            <td>추나요법(20회 이후)</td>
+                            <td>2~4만원</td>
                         </tr>
                         <tr>
-                            <td>감기약</td>
-                            <td>1일 (2팩)</td>
-                            <td>5,000</td>
+                            <td>감기약 1일(2팩)</td>
+                            <td>5천원</td>
                         </tr>
                         <tr>
-                            <td>치료한약</td>
-                            <td>45팩</td>
-                            <td>200,000 ~ 220,000</td>
+                            <td>치료한약 45팩</td>
+                            <td>20~22만원</td>
                         </tr>
                         <tr>
-                            <td>녹용한약</td>
-                            <td>60팩</td>
-                            <td>350,000 ~ 450,000</td>
+                            <td>녹용한약 60팩</td>
+                            <td>35~45만원</td>
                         </tr>
                         <tr>
-                            <td>소아일반 / 녹용</td>
-                            <td>8세 미만</td>
-                            <td>150,000 / 200,000</td>
+                            <td>소아일반 / 녹용 (8세 미만)</td>
+                            <td>15만원 / 20만원</td>
                         </tr>
                     </tbody>
                 </table>
@@ -553,7 +570,8 @@
         </div>
     </div>
 
-    <!-- 플로팅 고정 버튼 영역 -->
+    <!-- 플로팅 버튼 영역 -->
+    <!-- 네이버 예약 버튼 숨김 처리됨 -->
     <a href="https://booking.naver.com" target="_blank" class="naver-floating">
         <i class="fa-solid fa-calendar-check"></i> 네이버 예약
     </a>
@@ -561,7 +579,7 @@
         <i class="fa-solid fa-phone"></i> 전화 문의하기
     </a>
 
-    <!-- 9. 비급여 팝업 제어 스크립트 -->
+    <!-- 9. 스크립트 -->
     <script>
         function openModal() {
             document.getElementById('priceModal').classList.add('active');
